@@ -322,50 +322,38 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  //Init
-  const uint8_t TRAFFIC_LIGHT_MAX[3] = {5, 3, 2}; //RED, GREEN, YELLOW
 
-  counter = 0;
-
-  uint8_t state1 = 0; //RED
-  value1 = TRAFFIC_LIGHT_MAX[state1]+1;
-  update_light_led_buffer(state1, 0);
-
-  uint8_t state2 = 1; //GREEN
-  value2 = TRAFFIC_LIGHT_MAX[state2]+1;
-  update_light_led_buffer(state2, 1);
 
   //Loop
   while(1){
 
-	  if(counter == 0){
-		  value1--;
-		  value2--;
-		  if(!value1) {
-			  state1 = (state1+1)%3;
-			  value1 = TRAFFIC_LIGHT_MAX[state1];
-			  update_light_led_buffer(state1, 0);
+	  //RED1
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_5, GPIO_PIN_RESET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_6, GPIO_PIN_SET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7, GPIO_PIN_SET) ;
+	  //GREEN2
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_8, GPIO_PIN_SET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_9, GPIO_PIN_SET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_10, GPIO_PIN_RESET) ;
 
-		  }
-		  if(!value2) {
-			  state2 = (state2+1)%3;
-			  value2 = TRAFFIC_LIGHT_MAX[state2];
-			  update_light_led_buffer(state2, 1);
+	  HAL_Delay (3000) ;
+	  //YELLOW2
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_9, GPIO_PIN_RESET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_10, GPIO_PIN_SET) ;
 
-		  }
-		  if(!update_seven_segment_led_buffer(value1, 0) ||
-				  !update_seven_segment_led_buffer(value2, 1))
-			  printf("ERROR DETECTED");
+	  HAL_Delay (2000) ;
+	  //RED2
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_8, GPIO_PIN_RESET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_9, GPIO_PIN_SET) ;
+	  //GREEN1
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_5, GPIO_PIN_SET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7, GPIO_PIN_RESET) ;
 
-
-	  }
-	  else {
-		  seven_segment_led_driver();
-		  transport_light_led_driver();
-
-	  }
-	  HAL_Delay(10);
-	  counter = (counter+1)%100;
+	  HAL_Delay (2000) ;
+	  //YELLOW1
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_6, GPIO_PIN_RESET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7, GPIO_PIN_SET) ;
+	  HAL_Delay (3000) ;
   }
   /* USER CODE END 3 */
 }
