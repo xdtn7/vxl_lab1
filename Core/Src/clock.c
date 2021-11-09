@@ -1,7 +1,7 @@
 #include "main.h"
 #include "led_display.h"
 
-
+//yolo
 #define	NUMBER_OF_ELEMENT						12
 
 #define CLOCK_1_A			GPIO_PIN_0
