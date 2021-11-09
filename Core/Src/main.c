@@ -322,25 +322,50 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t counter = 0;
-  uint8_t valueToDisplay = 0;
-  uint8_t value1 = 0;
-  uint8_t value2 = 0;
+  //Init
+  const uint8_t TRAFFIC_LIGHT_MAX[3] = {5, 3, 2}; //RED, GREEN, YELLOW
 
-  while (1)
-  {
-    /* USER CODE END WHILE */
+  counter = 0;
 
-    /* USER CODE BEGIN 3 */
-	  //RED1
+  uint8_t state1 = 0; //RED
+  value1 = TRAFFIC_LIGHT_MAX[state1]+1;
+  update_light_led_buffer(state1, 0);
+
+  uint8_t state2 = 1; //GREEN
+  value2 = TRAFFIC_LIGHT_MAX[state2]+1;
+  update_light_led_buffer(state2, 1);
+
+  //Loop
+  while(1){
+
+	  if(counter == 0){
+		  value1--;
+		  value2--;
+		  if(!value1) {
+			  state1 = (state1+1)%3;
+			  value1 = TRAFFIC_LIGHT_MAX[state1];
+			  update_light_led_buffer(state1, 0);
+
+		  }
+		  if(!value2) {
+			  state2 = (state2+1)%3;
+			  value2 = TRAFFIC_LIGHT_MAX[state2];
+			  update_light_led_buffer(state2, 1);
+
+		  }
+		  if(!update_seven_segment_led_buffer(value1, 0) ||
+				  !update_seven_segment_led_buffer(value2, 1))
+			  printf("ERROR DETECTED");
 
 
+	  }
+	  else {
+		  seven_segment_led_driver();
+		  transport_light_led_driver();
 
-	  	  valueToDisplay = (valueToDisplay + 1) % 10;
-	  	  display7SEG(valueToDisplay);
-	  	  HAL_Delay(1000);
-
-
+	  }
+	  HAL_Delay(10);
+	  counter = (counter+1)%100;
   }
   /* USER CODE END 3 */
 }
