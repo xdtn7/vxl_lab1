@@ -56,6 +56,7 @@ static void MX_GPIO_Init(void);
 /* USER CODE BEGIN 0 */
 
 
+
 /* USER CODE END 0 */
 
 /**
@@ -97,16 +98,33 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  //RED1
 	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_5, GPIO_PIN_RESET) ;
 	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_6, GPIO_PIN_SET) ;
 	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7, GPIO_PIN_SET) ;
-	  HAL_Delay (5000) ;
+	  //GREEN2
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_8, GPIO_PIN_SET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_9, GPIO_PIN_SET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_10, GPIO_PIN_RESET) ;
+
+	  HAL_Delay (3000) ;
+	  //YELLOW2
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_9, GPIO_PIN_RESET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_10, GPIO_PIN_SET) ;
+
+	  HAL_Delay (2000) ;
+	  //RED2
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_8, GPIO_PIN_RESET) ;
+	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_9, GPIO_PIN_SET) ;
+	  //GREEN1
 	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_5, GPIO_PIN_SET) ;
 	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7, GPIO_PIN_RESET) ;
-	  HAL_Delay (3000) ;
+
+	  HAL_Delay (2000) ;
+	  //YELLOW1
 	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_6, GPIO_PIN_RESET) ;
 	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7, GPIO_PIN_SET) ;
-	  HAL_Delay (2000) ;
+	  HAL_Delay (3000) ;
   }
   /* USER CODE END 3 */
 }
