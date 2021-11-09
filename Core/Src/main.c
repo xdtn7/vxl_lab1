@@ -323,49 +323,44 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   //Init
-  const uint8_t TRAFFIC_LIGHT_MAX[3] = {5, 3, 2}; //RED, GREEN, YELLOW
+  uint8_t HRS_MAX = 12;
+  uint8_t MIN_MAX = 60;
+  uint8_t SEC_MAX = 60;
+  uint8_t HRS = 0;
+  uint8_t MIN = 59;
+  uint8_t SEC = 10;
+  uint8_t NUMBER_OF_LEDS = 12;
 
-  counter = 0;
+  clearAllClock();
+  setNumberOnClock(SEC / (SEC_MAX / NUMBER_OF_LEDS) );
+  setNumberOnClock(MIN / (MIN_MAX / NUMBER_OF_LEDS) );
 
-  uint8_t state1 = 0; //RED
-  value1 = TRAFFIC_LIGHT_MAX[state1]+1;
-  update_light_led_buffer(state1, 0);
-
-  uint8_t state2 = 1; //GREEN
-  value2 = TRAFFIC_LIGHT_MAX[state2]+1;
-  update_light_led_buffer(state2, 1);
-
-  //Loop
   while(1){
+	  //UPDATE SECOND
+	  clearNumberOnClock(SEC / (SEC_MAX / NUMBER_OF_LEDS) );
+	  SEC = (SEC+1) % SEC_MAX;
+	  setNumberOnClock(SEC / (SEC_MAX / NUMBER_OF_LEDS) );
 
-	  if(counter == 0){
-		  value1--;
-		  value2--;
-		  if(!value1) {
-			  state1 = (state1+1)%3;
-			  value1 = TRAFFIC_LIGHT_MAX[state1];
-			  update_light_led_buffer(state1, 0);
-
+	  //UPDATE MINUTE
+	  if(!SEC) {
+		  clearNumberOnClock(MIN / (MIN_MAX / NUMBER_OF_LEDS) );
+		  MIN = (MIN+1) % MIN_MAX;
+		  setNumberOnClock(MIN / (MIN_MAX / NUMBER_OF_LEDS) );
+		  if(!MIN) {
+		  			  clearNumberOnClock(HRS );
+		  			  HRS = (HRS+1) % HRS_MAX;
+		  			  setNumberOnClock(HRS );
 		  }
-		  if(!value2) {
-			  state2 = (state2+1)%3;
-			  value2 = TRAFFIC_LIGHT_MAX[state2];
-			  update_light_led_buffer(state2, 1);
-
-		  }
-		  if(!update_seven_segment_led_buffer(value1, 0) ||
-				  !update_seven_segment_led_buffer(value2, 1))
-			  printf("ERROR DETECTED");
-
-
+		  else setNumberOnClock(HRS );
 	  }
 	  else {
-		  seven_segment_led_driver();
-		  transport_light_led_driver();
-
+		  setNumberOnClock(MIN / (MIN_MAX / NUMBER_OF_LEDS) );
+		  setNumberOnClock(HRS );
 	  }
-	  HAL_Delay(10);
-	  counter = (counter+1)%100;
+
+
+
+	  HAL_Delay(50);
   }
   /* USER CODE END 3 */
 }
