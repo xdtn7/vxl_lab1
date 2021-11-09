@@ -1,0 +1,5 @@
+clock.c:38:6:clearLed	16	static
+clock.c:79:6:setLed	16	static
+clock.c:120:6:clearAllClock	16	static
+clock.c:127:6:setNumberOnClock	16	static
+clock.c:132:6:clearNumberOnClock	16	static
