@@ -322,38 +322,25 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint8_t counter = 0;
+  uint8_t valueToDisplay = 0;
+  uint8_t value1 = 0;
+  uint8_t value2 = 0;
+
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 	  //RED1
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_5, GPIO_PIN_RESET) ;
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_6, GPIO_PIN_SET) ;
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7, GPIO_PIN_SET) ;
-	  //GREEN2
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_8, GPIO_PIN_SET) ;
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_9, GPIO_PIN_SET) ;
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_10, GPIO_PIN_RESET) ;
 
-	  HAL_Delay (3000) ;
-	  //YELLOW2
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_9, GPIO_PIN_RESET) ;
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_10, GPIO_PIN_SET) ;
 
-	  HAL_Delay (2000) ;
-	  //RED2
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_8, GPIO_PIN_RESET) ;
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_9, GPIO_PIN_SET) ;
-	  //GREEN1
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_5, GPIO_PIN_SET) ;
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7, GPIO_PIN_RESET) ;
 
-	  HAL_Delay (2000) ;
-	  //YELLOW1
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_6, GPIO_PIN_RESET) ;
-	  HAL_GPIO_WritePin ( GPIOA , GPIO_PIN_7, GPIO_PIN_SET) ;
-	  HAL_Delay (3000) ;
+	  	  valueToDisplay = (valueToDisplay + 1) % 10;
+	  	  display7SEG(valueToDisplay);
+	  	  HAL_Delay(1000);
+
+
   }
   /* USER CODE END 3 */
 }
